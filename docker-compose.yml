@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  identity-server:
+    build: ./src/IdentityServer
+    ports:
+      - '5001:5001'
+    volumes:
+      - ./src/IdentityServer:/root/IdentityServer:cached
+      - ./src/IdentityServer/certs:/https/
+      - type: bind
+        source: ./certs/aspnetapp-root-cert.cer
+        target: /https-root/aspnetapp-root-cert.cer
+    environment:
+      - ASPNETCORE_URLS="https://+;"
+      - ASPNETCORE_HTTPS_PORT=5001
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp-identity-server.pfx
+
+  web-api:
+    build: ./src/Api
+    ports:
+        - '6001:6001'
+    volumes:
+      - ./src/Api:/root/Api:cached
+      - ./src/Api/certs:/https/
+      - type: bind
+        source: ./certs/aspnetapp-root-cert.cer
+        target: /https-root/aspnetapp-root-cert.cer
+    environment:
+      - ASPNETCORE_URLS="https://+;"
+      - ASPNETCORE_HTTPS_PORT=6001
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp-web-api.pfx

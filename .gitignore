@@ -1,0 +1,8 @@
+certs
+src/IdentityServer/certs
+src/Api/certs
+
+**/bin
+**/obj
+
+src/IdentityServer/tempkey.jwk
