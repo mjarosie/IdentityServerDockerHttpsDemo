@@ -4,4 +4,4 @@ WORKDIR /root/IdentityServer
 
 EXPOSE 5001
 
-ENTRYPOINT ["./docker-entrypoint.sh"]
+ENTRYPOINT ["dotnet", "watch", "run"]
