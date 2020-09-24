@@ -23,8 +23,6 @@ namespace IdentityServer
             // uncomment, if you want to add an MVC-based UI
             //services.AddControllersWithViews();
 
-            System.Console.WriteLine(Environment.IsDevelopment());
-
             var builder = Environment.IsDevelopment() ?
                 services.AddIdentityServer(x =>
                 {
